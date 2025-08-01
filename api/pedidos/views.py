@@ -4,6 +4,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import PedidoSerializer
+from .models import Pedido
+
+class PedidoListView(APIView):
+    def get(self, request):
+        pedidos = Pedido.objects.all().order_by('-criado_em')
+        serializer = PedidoSerializer(pedidos, many=True)
+        return Response(serializer.data)
 
 class PedidoCreateView(APIView):
     def post(self, request):
