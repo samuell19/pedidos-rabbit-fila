@@ -122,11 +122,9 @@ def menu_interativo():
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--simples":
-        # Modo simples (como o original)
         producer = PedidoProducer()
         if producer.conectar():
             producer.enviar_pedido("Notebook Dell", 2)
             producer.fechar_conexao()
     else:
-        # Modo interativo
         menu_interativo()
