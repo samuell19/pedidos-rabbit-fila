@@ -5,7 +5,7 @@ import os
 import sys
 import django
 
-# Configurar Django
+
 sys.path.append('/workspaces/pedidos-rabbit-fila/api')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'api.settings')
 django.setup()
@@ -16,10 +16,10 @@ def callback(ch, method, properties, body):
     pedido_data = json.loads(body)
     print(f"[x] Processando pedido: {pedido_data['produto']} x {pedido_data['quantidade']}")
     
-    # Simular processamento
+    
     time.sleep(3)
     
-    # Salvar no banco de dados
+    
     try:
         pedido = Pedido.objects.create(
             produto=pedido_data['produto'],
@@ -33,7 +33,7 @@ def callback(ch, method, properties, body):
     except Exception as e:
         print(f"[❌] Erro ao salvar no banco: {e}")
 
-# Usando localhost para teste local
+
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
 channel.queue_declare(queue='fila_pedidos')
