@@ -8,7 +8,8 @@ def callback(ch, method, properties, body):
     time.sleep(3)
     print("[✓] Pedido concluído")
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))
+# Usando localhost para teste local
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
 channel.queue_declare(queue='fila_pedidos')
 
